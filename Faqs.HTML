@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Paradox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Open Sans', sans-serif;
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background-color: black;
+            position: relative;
+        }
+
+        /* Twinkling stars */
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkling 2s infinite ease-in-out;
+        }
+
+        @keyframes twinkling {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        .star {
+            top: calc(100% * var(--y));
+            left: calc(100% * var(--x));
+            animation-delay: calc(0.2s * var(--i));
+            transform: translate(-50%, -50%);
+        }
+
+        /* Top navigation bar */
+        .grey-tab {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 50px;
+            background-color: #000000;
+            color: #E1EBEE;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+            font-size: 130%;
+            z-index: 1;
+        }
+
+        .nav-button {
+            font-size: 1.2rem;
+            background: #000000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-right: 30px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .nav-button:hover {
+            background-color: #5A1F9E;
+        }
+        .nav-button.active {
+            border-bottom: 3px solid white;
+        }
+        /* FAQ Section */
+        .faq-container {
+            text-align: center;
+            margin-top: 80px; /* Adjust for the navigation bar */
+            width: 80%;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin: 20px 0;
+        }
+
+        .faq {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 15px 0;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .faq:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .answer {
+            display: none; /* Initially hide answers */
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        /* Break line for footer */
+        .break-line {
+            position: absolute;
+            bottom: 60px;
+            width: 100%;
+            height: 1px;
+            background-color: #d3d3d3;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 1.17rem;
+            color: #888;
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Twinkling stars -->
+    <div class="star" style="--i:1; --x:0.05; --y:0.1;"></div>
+    <div class="star" style="--i:2; --x:0.15; --y:0.2;"></div>
+    <div class="star" style="--i:3; --x:0.25; --y:0.15;"></div>
+    <div class="star" style="--i:4; --x:0.35; --y:0.25;"></div>
+    <div class="star" style="--i:5; --x:0.45; --y:0.35;"></div>
+    <div class="star" style="--i:6; --x:0.55; --y:0.45;"></div>
+    <div class="star" style="--i:7; --x:0.65; --y:0.55;"></div>
+    <div class="star" style="--i:8; --x:0.75; --y:0.65;"></div>
+    <div class="star" style="--i:9; --x:0.85; --y:0.75;"></div>
+    <div class="star" style="--i:10; --x:0.95; --y:0.85;"></div>
+
+    <!-- Top navigation bar -->
+    <div class="grey-tab">
+        <button class="nav-button" onclick="window.location.href='start.html'">HOME</button>
+        <button class="nav-button" onclick="window.location.href='about us.html'">ABOUT US</button>
+        <button class="nav-button active" onclick="window.location.href='Faqs.HTML'">FAQ</button> <!-- Active tab -->
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-container">
+        <h1>Frequently Asked Questions</h1>
+
+        <div class="faq" onclick="toggleAnswer(this)">
+            <h2>What is Paradox?</h2>
+            <div class="answer">
+                <p>Paradox is a team of innovators dedicated to leveraging technology to create impactful solutions.</p>
+            </div>
+        </div>
+
+        <div class="faq" onclick="toggleAnswer(this)">
+            <h2>What did you do in the hackathon?</h2>
+            <div class="answer">
+                <p>We developed a project focused on [insert project theme], showcasing our technical skills and collaborative spirit.</p>
+            </div>
+        </div>
+
+        <div class="faq" onclick="toggleAnswer(this)">
+            <h2>How can I get in touch?</h2>
+            <div class="answer">
+                <p>You can reach us via email at shashwatdhiman2004@gmail.com or through our website's contact form.</p>
+            </div>
+        </div>
+
+        <div class="faq" onclick="toggleAnswer(this)">
+            <h2>How can I join the team?</h2>
+            <div class="answer">
+                <p>We are always looking for passionate individuals! Reach out to us to learn more about opportunities.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAnswer(faq) {
+            const answer = faq.querySelector('.answer');
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

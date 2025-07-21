@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParaDf</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Open Sans', sans-serif;
+            color: #000000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            perspective: 1000px;
+            background-color: black;
+        }
+
+        /* Twinkling stars */
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkling 2s infinite ease-in-out;
+        }
+
+        @keyframes twinkling {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        .star {
+            top: calc(100% * var(--y));
+            left: calc(100% * var(--x));
+            animation-delay: calc(0.2s * var(--i));
+            transform: translate(-50%, -50%);
+        }
+
+        /* 3D Rotating Hexagon */
+        .hexagon-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            transform: translate(-50%, -50%) rotate3d(1, 1, 0, 0deg);
+            animation: rotateHexagon 10s linear infinite;
+            transform-style: preserve-3d;
+        }
+
+        .hexagon {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #4B0082, #7B68EE, #E1EBEE);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            transform-style: preserve-3d;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Hexagon Rotation Animation */
+        @keyframes rotateHexagon {
+            0% { transform: translate(-50%, -50%) rotate3d(1, 1, 0, 0deg); }
+            100% { transform: translate(-50%, -50%) rotate3d(1, 1, 0, 360deg); }
+        }
+
+        /* Main content styling */
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            font-size: 130%;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.5rem; /* Adjust font size slightly */
+            margin: 20px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 30ch; /* Adjust width to fit the longest text */
+            color: #E1EBEE;
+            display: inline-block;
+            position: relative;
+            }
+        /* Cursor now moves with text */
+        #dynamic-text::after {
+            content: '|';
+            animation: blink 0.7s step-end infinite;
+            color: #E1EBEE;
+            font-weight: bold;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Top navigation bar */
+        .grey-tab {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 50px;
+            background-color: #000000;
+            color: #E1EBEE;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+            font-size: 130%;
+            z-index: 1;
+        }
+
+        .nav-button {
+        font-size: 1.2rem;
+        background: none; /* Remove background for underline effect */
+        color: white; /* Set text color to white */
+        border: none;
+        cursor: pointer;
+        margin-right: 30px;
+        padding: 10px 20px;
+        transition: background-color 0.3s ease, border-bottom 0.3s ease; /* Include border-bottom in transition */
+        font-weight: bold;
+        text-decoration: none; /* Ensure no text-decoration by default */
+        position: relative; /* Positioning for the underline */
+        
+        }
+
+        .nav-button:hover {
+        background-color: #5A1F9E; /* Background color on hover */
+        border-bottom: 2px solid white; /* Create a white underline on hover */
+    }
+
+
+        /* Get Started button styled */
+        .start-button {
+            font-size: 2.0rem;
+            background-color: white;
+            color: #4B0082;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            top: 70%;
+            z-index: 2;
+        }
+
+        .start-button:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Break line for footer */
+        .break-line {
+            position: absolute;
+            bottom: 60px;
+            width: 100%;
+            height: 1px;
+            background-color: #d3d3d3;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 1.17rem;
+            color: #888;
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Twinkling stars -->
+    <div class="star" style="--i:1; --x:0.05; --y:0.1;"></div>
+    <div class="star" style="--i:2; --x:0.15; --y:0.2;"></div>
+    <div class="star" style="--i:1; --x:0.05; --y:0.1;"></div>
+    <div class="star" style="--i:2; --x:0.15; --y:0.2;"></div>
+    <div class="star" style="--i:3; --x:0.85; --y:0.1;"></div>
+    <div class="star" style="--i:4; --x:0.75; --y:0.15;"></div>
+    <div class="star" style="--i:5; --x:0.05; --y:0.85;"></div>
+    <div class="star" style="--i:6; --x:0.15; --y:0.9;"></div>
+    <div class="star" style="--i:7; --x:0.85; --y:0.9;"></div>
+    <div class="star" style="--i:8; --x:0.75; --y:0.85;"></div>
+    <div class="star" style="--i:9; --x:0.05; --y:0.05;"></div>
+    <div class="star" style="--i:10; --x:0.9; --y:0.95;"></div>
+    <div class="star" style="--i:11; --x:0.2; --y:0.05;"></div>
+    <div class="star" style="--i:12; --x:0.8; --y:0.05;"></div>
+    <div class="star" style="--i:13; --x:0.9; --y:0.2;"></div>
+    <div class="star" style="--i:14; --x:0.05; --y:0.75;"></div>
+    <div class="star" style="--i:15; --x:0.2; --y:0.95;"></div>
+    <div class="star" style="--i:16; --x:0.8; --y:0.95;"></div>
+    <div class="star" style="--i:17; --x:0.95; --y:0.85;"></div>
+    <div class="star" style="--i:18; --x:0.85; --y:0.25;"></div>
+    <div class="star" style="--i:19; --x:0.95; --y:0.35;"></div>
+    <div class="star" style="--i:20; --x:0.05; --y:0.35;"></div>
+    <div class="star" style="--i:21; --x:0.1; --y:0.25;"></div>
+    <div class="star" style="--i:22; --x:0.9; --y:0.75;"></div>
+    <div class="star" style="--i:23; --x:0.8; --y:0.85;"></div>
+    <div class="star" style="--i:24; --x:0.3; --y:0.9;"></div>
+    <div class="star" style="--i:25; --x:0.7; --y:0.95;"></div>
+    <div class="star" style="--i:26; --x:0.6; --y:0.85;"></div>
+    <div class="star" style="--i:27; --x:0.35; --y:0.05;"></div>
+    <div class="star" style="--i:28; --x:0.65; --y:0.05;"></div>
+    <div class="star" style="--i:29; --x:0.35; --y:0.95;"></div>
+    <div class="star" style="--i:30; --x:0.65; --y:0.95;"></div>
+    <div class="star" style="--i:1; --x:0.1; --y:0.1;"></div>
+    <div class="star" style="--i:2; --x:0.2; --y:0.3;"></div>
+    <div class="star" style="--i:3; --x:0.3; --y:0.5;"></div>
+    <div class="star" style="--i:4; --x:0.4; --y:0.8;"></div>
+    <div class="star" style="--i:5; --x:0.5; --y:0.6;"></div>
+    <div class="star" style="--i:6; --x:0.6; --y:0.2;"></div>
+    <div class="star" style="--i:7; --x:0.7; --y:0.4;"></div>
+    <div class="star" style="--i:8; --x:0.8; --y:0.7;"></div>
+    <div class="star" style="--i:9; --x:0.9; --y:0.9;"></div>
+    <div class="star" style="--i:10; --x:0.1; --y:0.9;"></div>
+    <div class="star" style="--i:11; --x:0.15; --y:0.1;"></div>
+    <div class="star" style="--i:12; --x:0.25; --y:0.2;"></div>
+    <div class="star" style="--i:13; --x:0.35; --y:0.35;"></div>
+    <div class="star" style="--i:14; --x:0.45; --y:0.45;"></div>
+    <div class="star" style="--i:15; --x:0.55; --y:0.55;"></div>
+    <div class="star" style="--i:16; --x:0.65; --y:0.65;"></div>
+    <div class="star" style="--i:17; --x:0.75; --y:0.75;"></div>
+    <div class="star" style="--i:18; --x:0.85; --y:0.85;"></div>
+    <div class="star" style="--i:19; --x:0.95; --y:0.95;"></div>
+    <div class="star" style="--i:20; --x:0.05; --y:0.05;"></div>
+    <div class="star" style="--i:21; --x:0.12; --y:0.12;"></div>
+    <div class="star" style="--i:22; --x:0.23; --y:0.25;"></div>
+    <div class="star" style="--i:23; --x:0.34; --y:0.33;"></div>
+    <div class="star" style="--i:24; --x:0.45; --y:0.42;"></div>
+    <div class="star" style="--i:25; --x:0.56; --y:0.52;"></div>
+    <div class="star" style="--i:26; --x:0.67; --y:0.62;"></div>
+    <div class="star" style="--i:27; --x:0.78; --y:0.72;"></div>
+    <div class="star" style="--i:28; --x:0.89; --y:0.82;"></div>
+    <div class="star" style="--i:29; --x:0.95; --y:0.85;"></div>
+    <div class="star" style="--i:30; --x:0.08; --y:0.95;"></div>
+
+
+    
+
+    <!-- Rotating 3D Hexagon Background -->
+    <div class="hexagon-container">
+        <div class="hexagon"></div>
+    </div>
+
+    <!-- Top navigation bar -->
+    <div class="grey-tab">
+        <button class="nav-button" onclick="window.location.href='submit and preview.html'">HOME</button>
+        <button class="nav-button" onclick="window.location.href='about us.html'">ABOUT US</button>
+        <button class="nav-button" onclick="window.location.href='Faqs.HTML'">FAQS</button>
+    </div>
+
+    <!-- Main content -->
+    <div class="container">
+        <main>
+            <h1 id="dynamic-text"></h1>
+        </main>
+    </div>
+
+    <!-- Get Started button -->
+    <button class="start-button" onclick="window.open('http://localhost:8501', '_blank')">GET STARTED!!</button>
+
+    <script>
+        const textElement = document.getElementById('dynamic-text');
+        const texts = ["Do your best learning", "Analyze any PDF with the help of AI"];
+        let textIndex = 0;
+        let charIndex = 0;
+        let currentText = '';
+        let isDeleting = false;
+
+        function typeText() {
+            if (isDeleting) {
+                currentText = texts[textIndex].substring(0, charIndex--);
+            } else {
+                currentText = texts[textIndex].substring(0, charIndex++);
+            }
+
+            textElement.textContent = currentText;
+
+            if (!isDeleting && charIndex === texts[textIndex].length) {
+                setTimeout(() => isDeleting = true, 1000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+            }
+
+            setTimeout(typeText, isDeleting ? 50 : 100);
+        }
+
+        typeText();
+    </script>
+</body>
+</html>
